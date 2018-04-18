@@ -117,3 +117,22 @@ SELECT DISTINCT Clientes.CodigoEmpleadoRepVentas, Empleados.Nombre FROM Clientes
 /*Sacar todos los empleados y decir a que cliente lleva*/
 SELECT Empleados.CodigoEmpleado, Empleados.Nombre, Clientes.CodigoCliente, Clientes.NombreCliente FROM Empleados LEFT JOIN Clientes ON Clientes.CodigoEmpleadoRepVentas=Empleados.CodigoEmpleado;
 
+/*Obtener nombre del cliente con mayor limite de credito*/
+SELECT NombreCliente FROM Clientes WHERE LimiteCredito = (SELECT MAX(LimiteCredito) FROM Clientes);
+
+/*Obtener Nombre, Apellido1 y cargo de los empleados que no representen a ningun cliente*/
+SELECT Empleados.Nombre, Empleados.Apellido1, Empleados.Puesto, Clientes.CodigoCliente, Clientes.NombreCliente FROM Empleados LEFT JOIN Clientes ON Clientes.CodigoEmpleadoRepVentas=Empleados.CodigoEmpleado WHERE Clientes.CodigoEmpleadoRepVentas IS NULL;
+SELECT CONCAT(Empleados.Nombre, ' ', Empleados.Apellido1) AS Empleado, Empleados.Puesto AS Puesto FROM Empleados LEFT JOIN Clientes ON Clientes.CodigoEmpleadoRepVentas=Empleados.CodigoEmpleado WHERE Clientes.CodigoEmpleadoRepVentas IS NULL;
+
+/*Saca un listado con el nombre de cada cliente y nombre y apellido de su representante de venta*/
+SELECT Clientes.NombreCliente, CONCAT(Empleados.Nombre, ' ', Empleados.Apellido1) AS Representante FROM Clientes JOIN Empleados ON Clientes.CodigoEmpleadoRepVentas=Empleados.CodigoEmpleado;
+
+/*Muestra el nombre de los clientes que no hayan realizado el pago con su representante de ventas*/
+SELECT Clientes.NombreCliente, Empleados.Nombre, Pagos.FechaPago FROM Empleados LEFT JOIN Clientes ON Clientes.CodigoEmpleadoRepVentas = Empleados.CodigoEmpleado LEFT JOIN Pagos ON Clientes.CodigoCliente = Pagos.CodigoCliente WHERE FechaPago IS NULL AND NombreCliente IS NOT NULL;
+
+/*Listar las ventas totales de los productos que hayan faturado más de 3.000 €, se mostrara el nombre del producto, unidades vendidas, total facturado y total facturado con el 21% de IVA*/
+SELECT Productos.Nombre, SUM(Cantidad) AS Unidades, SUM(Cantidad * PrecioUnidad) AS Total, SUM(Cantidad * PrecioUnidad)*21/100+SUM(Cantidad * PrecioUnidad) AS IVA FROM DetallePedidos NATURAL JOIN Productos GROUP BY Productos.Nombre HAVING Total > 3000;
+
+/*Listar la dirección de las oficinas que tengan clientes en Fuenla*/
+
+/*CodigoCliente, NombreCliente, CodigoPedido, Estado, CodigoProducto, Cantidad*/
