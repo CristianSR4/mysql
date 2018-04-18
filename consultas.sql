@@ -84,9 +84,6 @@ SELECT (SELECT MIN(PrecioVenta) FROM Productos) AS Minimo, (SELECT MAX(PrecioVen
 /*Sacar el producto mas caro de cada gama*/
 SELECT Gama,MAX(PrecioVenta) FROM Productos GROUP BY Gama;
 
-/*Sacar el producto mas caro de Gama Aromaticas, pero tambien saber el codigo del producto*/
-SELECT 
-
 /*Sacar en la misma consulta el empleado y el jefe que tiene cada empleado*/
 SELECT Curritos.CodigoEmpleado, Curritos.Nombre, Curritos.Apellido1, Jefes.Nombre, Jefes.Apellido1 FROM Empleados AS Curritos, Empleados AS Jefes WHERE Curritos.CodigoJefe=Jefes.CodigoEmpleado;
 
@@ -133,6 +130,7 @@ SELECT Clientes.NombreCliente, Empleados.Nombre, Pagos.FechaPago FROM Empleados 
 /*Listar las ventas totales de los productos que hayan faturado más de 3.000 €, se mostrara el nombre del producto, unidades vendidas, total facturado y total facturado con el 21% de IVA*/
 SELECT Productos.Nombre, SUM(Cantidad) AS Unidades, SUM(Cantidad * PrecioUnidad) AS Total, SUM(Cantidad * PrecioUnidad)*21/100+SUM(Cantidad * PrecioUnidad) AS IVA FROM DetallePedidos NATURAL JOIN Productos GROUP BY Productos.Nombre HAVING Total > 3000;
 
-/*Listar la dirección de las oficinas que tengan clientes en Fuenla*/
+/*Listar la dirección de las oficinas que tengan clientes en Fuenlabrada*/
+
 
 /*CodigoCliente, NombreCliente, CodigoPedido, Estado, CodigoProducto, Cantidad*/
