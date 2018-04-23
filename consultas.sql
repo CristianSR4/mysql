@@ -131,6 +131,6 @@ SELECT Clientes.NombreCliente, Empleados.Nombre, Pagos.FechaPago FROM Empleados 
 SELECT Productos.Nombre, SUM(Cantidad) AS Unidades, SUM(Cantidad * PrecioUnidad) AS Total, SUM(Cantidad * PrecioUnidad)*21/100+SUM(Cantidad * PrecioUnidad) AS IVA FROM DetallePedidos NATURAL JOIN Productos GROUP BY Productos.Nombre HAVING Total > 3000;
 
 /*Listar la dirección de las oficinas que tengan clientes en Fuenlabrada*/
-
+SELECT CONCAT(Oficinas.LineaDireccion1, ' ', Oficinas.LineaDireccion2) AS 'Dirección' FROM Clientes JOIN Empleados NATURAL JOIN Oficinas ON(Clientes.CodigoEmpleadoRepVentas=Empleados.CodigoEmpleado) WHERE Clientes.Ciudad='Fuenlabrada' ORDER BY Clientes.CodigoCliente;
 
 /*CodigoCliente, NombreCliente, CodigoPedido, Estado, CodigoProducto, Cantidad*/
