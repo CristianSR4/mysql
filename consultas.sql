@@ -133,4 +133,55 @@ SELECT Productos.Nombre, SUM(Cantidad) AS Unidades, SUM(Cantidad * PrecioUnidad)
 /*Listar la dirección de las oficinas que tengan clientes en Fuenlabrada*/
 SELECT CONCAT(Oficinas.LineaDireccion1, ' ', Oficinas.LineaDireccion2) AS 'Dirección' FROM Clientes JOIN Empleados NATURAL JOIN Oficinas ON(Clientes.CodigoEmpleadoRepVentas=Empleados.CodigoEmpleado) WHERE Clientes.Ciudad='Fuenlabrada' ORDER BY Clientes.CodigoCliente;
 
-/*CodigoCliente, NombreCliente, CodigoPedido, Estado, CodigoProducto, Cantidad*/
+/*Sacar cliente que hizo el pedido de mayor cuantia*/
+
+
+/*Sacar cuantos clientes tienen las ciudades que empiezan por M*/
+
+
+/*Sacar CodEmpleado, numero clientes al que atiende cada representante de ventas*/
+
+
+/*Sacar numero de clientes que no tienen asignado RepVentas*/
+
+
+/*Sacar el primer pago y el ultimo de algún cliente*/
+
+
+/*Sacar el codigo cliente de aquellos clientes que hicieron pago en 2008*/
+
+
+/*Sacar numero pedido, codigo cliente, fecha requerida y fecha entrega de los pedidos que no han sido integrados a tiempo*/
+
+
+/*Sacar cuantos productos existen cada linea de pedido*/
+
+
+/*Sacar listado de los 20 codigos de producto mas pedidos ordenados por cantidad pedida*/
+
+
+/*Sacar numero pedido, codigo clientes, fecha entrega, fecha requerida de los pedidos cuya fecha entrega ha sido al menos 2 dias antes de la fecha requerida*/
+
+
+/*Sacar la facturacion que ha tenido la empresa en toda la historia indicando la mas imposible suma(costeproducto*numero udsvendidas), el IVA y el total facturado(suma dos campos anteriores)*/
+
+
+/*Sacar la misma que la anterior agrupando por codigoProducto filtrada por los codigos que empiecen por fr*/
+
+
+/*Obtener listado del nombre de empleados con el nombre de sus jefes*/
+
+
+/*Sacar listado de jefes y sacar empleados a su cargo ordenado por numero empleados subordinados*/
+
+
+/*Obtener nombre de clientes a los que no se les ha entregado a tiempo un pedido*/
+
+
+/*Sacar em importe medio de los pedidos*/
+
+
+/*Cual es el pedido mas caro del empleado que mas clientes tiene*/
+
+
+
