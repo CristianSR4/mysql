@@ -134,7 +134,7 @@ SELECT Productos.Nombre, SUM(Cantidad) AS Unidades, SUM(Cantidad * PrecioUnidad)
 SELECT CONCAT(Oficinas.LineaDireccion1, ' ', Oficinas.LineaDireccion2) AS 'Dirección' FROM Clientes JOIN Empleados NATURAL JOIN Oficinas ON(Clientes.CodigoEmpleadoRepVentas=Empleados.CodigoEmpleado) WHERE Clientes.Ciudad='Fuenlabrada' ORDER BY Clientes.CodigoCliente;
 
 /*Sacar cliente que hizo el pedido de mayor cuantia*/
-SELECT CodigoPedido, SUM(Cantidad * PrecioUnidad) AS Total FROM DetallePedidos GROUP BY CodigoPedido ORDER BY Total DESC LIMIT 1;
+SELECT Clientes.NombreCliente, Pedidos.CodigoPedido, SUM(Detalle.PrecioUnidad*Detalle.Cantidad) as Precio FROM DetallePedidos as Detalle JOIN Pedidos as Pedidos JOIN Clientes as Clientes ON Detalle.CodigoPedido = Pedidos.CodigoPedido AND Pedidos.CodigoCliente = Clientes.CodigoCliente GROUP BY Detalle.CodigoPedido HAVING Precio = (SELECT SUM(PrecioUnidad*Cantidad) as Precio FROM DetallePedidos GROUP BY CodigoPedido ORDER BY Precio DESC LIMIT 1);
 
 /*Sacar cuantos clientes tienen las ciudades que empiezan por M*/
 
