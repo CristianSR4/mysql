@@ -140,7 +140,7 @@ SELECT Clientes.NombreCliente, Pedidos.CodigoPedido, SUM(Detalle.PrecioUnidad*De
  SELECT COUNT(Clientes.NombreCliente), Clientes.Ciudad FROM Clientes as Clientes GROUP BY Ciudad HAVING Ciudad REGEXP "^M";
 
 /*Sacar CodEmpleado, numero clientes al que atiende cada representante de ventas*/
-
+ SELECT Clientes.CodigoEmpleadoRepVentas, COUNT(Clientes.NombreCliente) FROM Clientes as Clientes GROUP BY CodigoEmpleadoRepVentas;
 
 /*Sacar numero de clientes que no tienen asignado RepVentas*/
 
