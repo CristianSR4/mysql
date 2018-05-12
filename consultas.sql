@@ -158,7 +158,7 @@ SELECT CodigoPedido, CodigoCliente, FechaEsperada, FechaEntrega FROM Pedidos WHE
 SELECT CodigoPedido, COUNT(Cantidad) FROM DetallePedidos GROUP BY CodigoPedido;
 
 /*Sacar listado de los 20 codigos de producto mas pedidos ordenados por cantidad pedida*/
-
+ SELECT CodigoProducto, Cantidad FROM DetallePedidos ORDER BY Cantidad DESC LIMIT 20;
 
 /*Sacar numero pedido, codigo clientes, fecha entrega, fecha requerida de los pedidos cuya fecha entrega ha sido al menos 2 dias antes de la fecha requerida*/
 
