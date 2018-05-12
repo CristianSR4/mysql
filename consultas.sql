@@ -143,19 +143,19 @@ SELECT Clientes.NombreCliente, Pedidos.CodigoPedido, SUM(Detalle.PrecioUnidad*De
  SELECT Clientes.CodigoEmpleadoRepVentas, COUNT(Clientes.NombreCliente) FROM Clientes as Clientes GROUP BY CodigoEmpleadoRepVentas;
 
 /*Sacar numero de clientes que no tienen asignado RepVentas*/
-
+SELECT COUNT(Clientes.NombreCliente), Clientes.CodigoEmpleadoRepVentas FROM Clientes GROUP BY CodigoEmpleadoRepVentas HAVING CodigoEmpleadoRepVentas IS NULL;
 
 /*Sacar el primer pago y el ultimo de algún cliente*/
-
+SELECT MAX(FechaPago), MIN(FechaPago), CodigoCliente FROM Pagos GROUP BY CodigoCliente LIMIT 1;
 
 /*Sacar el codigo cliente de aquellos clientes que hicieron pago en 2008*/
+SELECT CodigoCliente FROM Pagos WHERE YEAR(FechaPago) = "2008";
 
+/*Sacar numero pedido, codigo cliente, fecha requerida y fecha entrega de los pedidos que no han sido entegrados a tiempo*/
+SELECT CodigoPedido, CodigoCliente, FechaEsperada, FechaEntrega FROM Pedidos WHERE FechaEsperada>FechaEntrega;
 
-/*Sacar numero pedido, codigo cliente, fecha requerida y fecha entrega de los pedidos que no han sido integrados a tiempo*/
-
-
-/*Sacar cuantos productos existen cada linea de pedido*/
-
+/*Sacar cuantos productos existen en cada linea de pedido*/
+SELECT CodigoPedido, COUNT(Cantidad) FROM DetallePedidos GROUP BY CodigoPedido;
 
 /*Sacar listado de los 20 codigos de producto mas pedidos ordenados por cantidad pedida*/
 
