@@ -161,7 +161,7 @@ SELECT CodigoPedido, COUNT(Cantidad) FROM DetallePedidos GROUP BY CodigoPedido;
  SELECT CodigoProducto, Cantidad FROM DetallePedidos ORDER BY Cantidad DESC LIMIT 20;
 
 /*Sacar numero pedido, codigo clientes, fecha entrega, fecha requerida de los pedidos cuya fecha entrega ha sido al menos 2 dias antes de la fecha requerida*/
-
+SELECT CodigoPedido, CodigoCliente, FechaEsperada, FechaEntrega FROM Pedidos WHERE DATE(FechaEsperada)-2 >= DATE(FechaEntrega);
 
 /*Sacar la facturacion que ha tenido la empresa en toda la historia indicando la mas imposible suma(costeproducto*numero udsvendidas), el IVA y el total facturado(suma dos campos anteriores)*/
 
