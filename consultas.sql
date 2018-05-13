@@ -170,16 +170,16 @@ SELECT CodigoPedido, COUNT(Cantidad) FROM DetallePedidos GROUP BY CodigoPedido;
 
 
 /*Obtener listado del nombre de empleados con el nombre de sus jefes*/
-
+SELECT Trabajadores.CodigoEmpleado, CONCAT(Trabajadores.Nombre,' ',Trabajadores.Apellido1) AS NombreEmpleado, CONCAT(Jefes.Nombre,' ',Jefes.Apellido1) AS NombreJefe FROM Empleados AS Trabajadores, Empleados AS Jefes WHERE Trabajadores.CodigoJefe=Jefes.CodigoEmpleado;
 
 /*Sacar listado de jefes y sacar empleados a su cargo ordenado por numero empleados subordinados*/
 
 
 /*Obtener nombre de clientes a los que no se les ha entregado a tiempo un pedido*/
-
+SELECT DISTINCT Clientes.NombreCliente FROM Clientes JOIN Pedidos ON Pedidos.CodigoCliente = Clientes.CodigoCliente WHERE FechaEsperada>FechaEntrega;
 
 /*Sacar em importe medio de los pedidos*/
-
+SELECT CodigoPedido, AVG(PrecioUnidad*Cantidad) FROM DetallePedidos GROUP BY CodigoPedido;
 
 /*Cual es el pedido mas caro del empleado que mas clientes tiene*/
 
