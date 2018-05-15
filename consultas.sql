@@ -173,7 +173,7 @@ SELECT SUM(PrecioUnidad*Cantidad) AS Cantidad, (SUM(PrecioUnidad*Cantidad)*21)/1
 SELECT Trabajadores.CodigoEmpleado, CONCAT(Trabajadores.Nombre,' ',Trabajadores.Apellido1) AS NombreEmpleado, CONCAT(Jefes.Nombre,' ',Jefes.Apellido1) AS NombreJefe FROM Empleados AS Trabajadores, Empleados AS Jefes WHERE Trabajadores.CodigoJefe=Jefes.CodigoEmpleado;
 
 /*Sacar listado de jefes y sacar empleados a su cargo ordenado por numero empleados subordinados*/
-
+SELECT Trabajadores.CodigoEmpleado, CONCAT(Trabajadores.Nombre,' ',Trabajadores.Apellido1) AS NombreEmpleado, CONCAT(Jefes.Nombre,' ',Jefes.Apellido1) AS NombreJefe FROM Empleados AS Trabajadores, Empleados AS Jefes WHERE Trabajadores.CodigoJefe=Jefes.CodigoEmpleado ORDER BY Trabajadores.CodigoEmpleado;
 
 /*Obtener nombre de clientes a los que no se les ha entregado a tiempo un pedido*/
 SELECT DISTINCT Clientes.NombreCliente FROM Clientes JOIN Pedidos ON Pedidos.CodigoCliente = Clientes.CodigoCliente WHERE FechaEsperada>FechaEntrega;
