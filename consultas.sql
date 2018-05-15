@@ -164,10 +164,10 @@ SELECT CodigoPedido, COUNT(Cantidad) FROM DetallePedidos GROUP BY CodigoPedido;
 SELECT CodigoPedido, CodigoCliente, FechaEsperada, FechaEntrega FROM Pedidos WHERE DATE(FechaEsperada)-2 >= DATE(FechaEntrega);
 
 /*Sacar la facturacion que ha tenido la empresa en toda la historia indicando la mas imposible suma(costeproducto*numero udsvendidas), el IVA y el total facturado(suma dos campos anteriores)*/
-
+SELECT SUM(PrecioUnidad*Cantidad) AS Cantidad, (SUM(PrecioUnidad*Cantidad)*21)/100 AS IVA, (SUM(PrecioUnidad*Cantidad)+(SUM(PrecioUnidad*Cantidad)*21)/100) AS Total FROM DetallePedidos;
 
 /*Sacar la misma que la anterior agrupando por codigoProducto filtrada por los codigos que empiecen por fr*/
-
+ SELECT SUM(PrecioUnidad*Cantidad) AS Cantidad, (SUM(PrecioUnidad*Cantidad)*21)/100 AS IVA, (SUM(PrecioUnidad*Cantidad)+(SUM(PrecioUnidad*Cantidad)*21)/100) AS Total FROM DetallePedidos WHERE CodigoProducto LIKE "FR%";
 
 /*Obtener listado del nombre de empleados con el nombre de sus jefes*/
 SELECT Trabajadores.CodigoEmpleado, CONCAT(Trabajadores.Nombre,' ',Trabajadores.Apellido1) AS NombreEmpleado, CONCAT(Jefes.Nombre,' ',Jefes.Apellido1) AS NombreJefe FROM Empleados AS Trabajadores, Empleados AS Jefes WHERE Trabajadores.CodigoJefe=Jefes.CodigoEmpleado;
