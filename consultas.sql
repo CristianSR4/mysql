@@ -148,6 +148,7 @@ SELECT Clientes.NombreCliente, Pedidos.CodigoPedido, SUM(Detalle.PrecioUnidad*De
 
 /*Sacar el primer pago y el ultimo de algún cliente*/
  SELECT MAX(FechaPago), MIN(FechaPago), CodigoCliente FROM Pagos GROUP BY CodigoCliente LIMIT 1;
+ SELECT * FROM Pagos WHERE FechaPago = (SELECT MAX(FechaPago) FROM Pagos WHERE CodigoCliente = 1) OR (SELECT MIN(FechaPago) FROM Pagos WHERE CodigoCliente = 1) AND CodigoCliente = 1;
 
 /*Sacar el codigo cliente de aquellos clientes que hicieron pago en 2008*/
  SELECT CodigoCliente FROM Pagos WHERE YEAR(FechaPago) = "2008";
@@ -185,4 +186,4 @@ SELECT CodigoPedido, AVG(PrecioUnidad*Cantidad) FROM DetallePedidos GROUP BY Cod
 /*Cual es el pedido mas caro del empleado que mas clientes tiene*/
 
 
-
+/*Trigger Syntax(MIRAR)
