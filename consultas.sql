@@ -137,34 +137,35 @@ SELECT CONCAT(Oficinas.LineaDireccion1, ' ', Oficinas.LineaDireccion2) AS 'Direc
 SELECT Clientes.NombreCliente, Pedidos.CodigoPedido, SUM(Detalle.PrecioUnidad*Detalle.Cantidad) as Precio FROM DetallePedidos as Detalle JOIN Pedidos as Pedidos JOIN Clientes as Clientes ON Detalle.CodigoPedido = Pedidos.CodigoPedido AND Pedidos.CodigoCliente = Clientes.CodigoCliente GROUP BY Detalle.CodigoPedido HAVING Precio = (SELECT SUM(PrecioUnidad*Cantidad) as Precio FROM DetallePedidos GROUP BY CodigoPedido ORDER BY Precio DESC LIMIT 1);
 
 /*Sacar cuantos clientes tienen las ciudades que empiezan por M*/
- SELECT COUNT(Clientes.NombreCliente), Clientes.Ciudad FROM Clientes as Clientes GROUP BY Ciudad HAVING Ciudad REGEXP "^M";
+ SELECT COUNT(Clientes.NombreCliente) AS NumeroClientes, Clientes.Ciudad FROM Clientes GROUP BY Ciudad HAVING Ciudad REGEXP "^M";
+ SELECT COUNT(Clientes.NombreCliente) AS NumeroClientes, Clientes.Ciudad FROM Clientes GROUP BY Ciudad HAVING Ciudad LIKE "M%";
 
 /*Sacar CodEmpleado, numero clientes al que atiende cada representante de ventas*/
- SELECT Clientes.CodigoEmpleadoRepVentas, COUNT(Clientes.NombreCliente) FROM Clientes as Clientes GROUP BY CodigoEmpleadoRepVentas;
+ SELECT Clientes.CodigoEmpleadoRepVentas, COUNT(Clientes.NombreCliente) as NumeroClientes FROM Clientes as Clientes GROUP BY CodigoEmpleadoRepVentas;
 
 /*Sacar numero de clientes que no tienen asignado RepVentas*/
-SELECT COUNT(Clientes.NombreCliente), Clientes.CodigoEmpleadoRepVentas FROM Clientes GROUP BY CodigoEmpleadoRepVentas HAVING CodigoEmpleadoRepVentas IS NULL;
+ SELECT COUNT(Clientes.NombreCliente) as NumeroClientes FROM Clientes WHERE CodigoEmpleadoRepVentas IS NULL;
 
 /*Sacar el primer pago y el ultimo de algún cliente*/
-SELECT MAX(FechaPago), MIN(FechaPago), CodigoCliente FROM Pagos GROUP BY CodigoCliente LIMIT 1;
+ SELECT MAX(FechaPago), MIN(FechaPago), CodigoCliente FROM Pagos GROUP BY CodigoCliente LIMIT 1;
 
 /*Sacar el codigo cliente de aquellos clientes que hicieron pago en 2008*/
-SELECT CodigoCliente FROM Pagos WHERE YEAR(FechaPago) = "2008";
+ SELECT CodigoCliente FROM Pagos WHERE YEAR(FechaPago) = "2008";
 
 /*Sacar numero pedido, codigo cliente, fecha requerida y fecha entrega de los pedidos que no han sido entegrados a tiempo*/
-SELECT CodigoPedido, CodigoCliente, FechaEsperada, FechaEntrega FROM Pedidos WHERE FechaEsperada>FechaEntrega;
+ SELECT CodigoPedido, CodigoCliente, FechaEsperada, FechaEntrega FROM Pedidos WHERE FechaEsperada>FechaEntrega;
 
 /*Sacar cuantos productos existen en cada linea de pedido*/
-SELECT CodigoPedido, COUNT(Cantidad) FROM DetallePedidos GROUP BY CodigoPedido;
+ SELECT CodigoPedido, COUNT(Cantidad) FROM DetallePedidos GROUP BY CodigoPedido;
 
 /*Sacar listado de los 20 codigos de producto mas pedidos ordenados por cantidad pedida*/
  SELECT CodigoProducto, Cantidad FROM DetallePedidos ORDER BY Cantidad DESC LIMIT 20;
 
 /*Sacar numero pedido, codigo clientes, fecha entrega, fecha requerida de los pedidos cuya fecha entrega ha sido al menos 2 dias antes de la fecha requerida*/
-SELECT CodigoPedido, CodigoCliente, FechaEsperada, FechaEntrega FROM Pedidos WHERE DATE(FechaEsperada)-2 >= DATE(FechaEntrega);
+ SELECT CodigoPedido, CodigoCliente, FechaEsperada, FechaEntrega FROM Pedidos WHERE DATE(FechaEsperada)-2 >= DATE(FechaEntrega);
 
 /*Sacar la facturacion que ha tenido la empresa en toda la historia indicando la mas imposible suma(costeproducto*numero udsvendidas), el IVA y el total facturado(suma dos campos anteriores)*/
-SELECT SUM(PrecioUnidad*Cantidad) AS Cantidad, (SUM(PrecioUnidad*Cantidad)*21)/100 AS IVA, (SUM(PrecioUnidad*Cantidad)+(SUM(PrecioUnidad*Cantidad)*21)/100) AS Total FROM DetallePedidos;
+ SELECT SUM(PrecioUnidad*Cantidad) AS Cantidad, (SUM(PrecioUnidad*Cantidad)*21)/100 AS IVA, (SUM(PrecioUnidad*Cantidad)+(SUM(PrecioUnidad*Cantidad)*21)/100) AS Total FROM DetallePedidos;
 
 /*Sacar la misma que la anterior agrupando por codigoProducto filtrada por los codigos que empiecen por fr*/
  SELECT SUM(PrecioUnidad*Cantidad) AS Cantidad, (SUM(PrecioUnidad*Cantidad)*21)/100 AS IVA, (SUM(PrecioUnidad*Cantidad)+(SUM(PrecioUnidad*Cantidad)*21)/100) AS Total FROM DetallePedidos WHERE CodigoProducto LIKE "FR%";
