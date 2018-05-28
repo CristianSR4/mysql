@@ -122,41 +122,41 @@ RETURNS CHAR(50) DETERMINISTIC
 
 SELECT hello('world');
 
+CREATE TABLE Meses (
+	Num INT(2),
+	Mes CHAR(30)
+);
+	
+INSERT INTO Meses VALUES 
+	(1, "ENERO"),
+	(2, "FEBRERO"),
+	(3, "MARZO"),
+	(4, "ABRIL"),
+	(5, "MAYO"),
+	(6, "JUNIO"),
+	(7, "JULIO"),
+	(8, "AGOSTO"),
+	(9, "SEPTIEMBRE"),
+	(10, "OCTUBRE"),
+	(11, "NOVIEMBRE"),
+	(12, "DICIEMBRE");
+			
+CREATE FUNCTION dameMes (n INT)
+RETURNS VARCHAR(20) DETERMINISTIC
+RETURN (SELECT Mes FROM Meses WHERE Num=n);
+
+/* Nos muestra el mes que corresponda al número */
+SELECT dameMes(1);
+SELECT dameMes(2);
+
 delimiter //
 
-CREATE PROCEDURE Meses (num INT(2)) 
-  BEGIN  
-  SET @Mes = 'ENERO';
-    CASE num
-        WHEN 1
-            THEN SET @Mes = 'ENERO';
-        WHEN 2
-            THEN SET @Mes = 'FEBRERO';
-        WHEN 3
-            THEN SET @Mes = 'MARZO';
-        WHEN 4
-            THEN SET @Mes = 'ABRIL';
-        WHEN 5
-            THEN SET @Mes = 'MAYO';
-        WHEN 6
-            THEN SET @Mes = 'JUNIO';
-        WHEN 7
-            THEN SET @Mes = 'JULIO';
-        WHEN 8
-            THEN SET @Mes = 'AGOSTO';
-        WHEN 9
-            THEN SET @Mes = 'SEPTIEMBRE';
-        WHEN 10                       
-            THEN SET @Mes = 'OCTUBRE';
-        WHEN 11
-            THEN SET @Mes = 'NOVIEMBRE';
-        WHEN 12
-            THEN SET @Mes = 'DICIEMBRE';
-   END CASE;
- END;
-//
+CREATE PROCEDURE imprimeMeses ()
+BEGIN
+DECLARE i INT DEFAULT 1;
+SELECT (i,dameMes(i));
+END //
+	
 delimiter ;
 
-CALL Meses (10);
-
-SELECT @Mes;
+CALL imprimeMeses
