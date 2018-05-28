@@ -151,16 +151,16 @@ SELECT Clientes.NombreCliente, Pedidos.CodigoPedido, SUM(Detalle.PrecioUnidad*De
  SELECT * FROM Pagos WHERE FechaPago = (SELECT MAX(FechaPago) FROM Pagos WHERE CodigoCliente = 1) OR (SELECT MIN(FechaPago) FROM Pagos WHERE CodigoCliente = 1) AND CodigoCliente = 1;
 
 /*Sacar el codigo cliente de aquellos clientes que hicieron pago en 2008*/
- SELECT CodigoCliente FROM Pagos WHERE YEAR(FechaPago) = "2008";
+SELECT DISTINCT CodigoCliente FROM Pagos WHERE YEAR(FechaPago) = "2008";
 
 /*Sacar numero pedido, codigo cliente, fecha requerida y fecha entrega de los pedidos que no han sido entegrados a tiempo*/
- SELECT CodigoPedido, CodigoCliente, FechaEsperada, FechaEntrega FROM Pedidos WHERE FechaEsperada>FechaEntrega;
+ SELECT CodigoPedido, CodigoCliente, FechaEsperada, FechaEntrega FROM Pedidos WHERE FechaEsperada<FechaEntrega;
 
 /*Sacar cuantos productos existen en cada linea de pedido*/
  SELECT CodigoPedido, COUNT(Cantidad) FROM DetallePedidos GROUP BY CodigoPedido;
 
 /*Sacar listado de los 20 codigos de producto mas pedidos ordenados por cantidad pedida*/
- SELECT CodigoProducto, Cantidad FROM DetallePedidos ORDER BY Cantidad DESC LIMIT 20;
+ SELECT CodigoProducto, SUM(Cantidad) FROM DetallePedidos GROUP BY CodigoProducto ORDER BY SUM(Cantidad) DESC LIMIT 20;
 
 /*Sacar numero pedido, codigo clientes, fecha entrega, fecha requerida de los pedidos cuya fecha entrega ha sido al menos 2 dias antes de la fecha requerida*/
  SELECT CodigoPedido, CodigoCliente, FechaEsperada, FechaEntrega FROM Pedidos WHERE DATE(FechaEsperada)-2 >= DATE(FechaEntrega);
