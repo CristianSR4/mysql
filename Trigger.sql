@@ -159,6 +159,14 @@ DECLARE i INT DEFAULT 1;
  
 END //
 	
-delimiter ;
+delimiter;
 
 CALL imprimeMeses;
+
+
+HACER PROCEDIMIENTO LLAMADO actualizacion limite credito, tanla limite credito(fecha, codigocliente e incremento) para actualizar los limites de creidto de los clientes en un porcentaje en un 15%, añadir otra columna(incremento total(el 15% aplicado con lo que llevaba)), clientes mas antiguos del 2010
+
+Crear tabla TablaFacturas(ID,CodigoCliente, CodPedido, PrecioTotal)
+
+HACER PROCEDIMINETO LLAMADO facturacion
+
