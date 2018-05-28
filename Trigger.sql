@@ -154,9 +154,11 @@ delimiter //
 CREATE PROCEDURE imprimeMeses ()
 BEGIN
 DECLARE i INT DEFAULT 1;
-SELECT (i,dameMes(i));
+
+  SELECT * FROM Meses;
+ 
 END //
 	
 delimiter ;
 
-CALL imprimeMeses
+CALL imprimeMeses;
