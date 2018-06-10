@@ -50,3 +50,9 @@ SELECT clientes.nombre, acciones.cantidad FROM clientes NATURAL JOIN acciones WH
 SELECT clientes.nombre, empresa.precio*acciones.cantidad as Total FROM clientes JOIN acciones JOIN empresa ON clientes.cid = acciones.cid AND empresa.eid = acciones.eid;
 /* d) Mostrar todos los campos de clientes y acciones de todas las 'aid'. */
 SELECT * FROM clientes RIGHT JOIN acciones ON clientes.cid = acciones.cid;
+
+/*TEORIA*/
+/* Explica qué es el producto cartesiano y como se produce en mysql */
+/* Es un tipo de composición de tablas que obtiene una tabla resultante con los campos de la tabla1 unidos a los de la tabla2,
+   y las filas son todas las combinaciones posibles entre la primera y la segunda tabla.
+   Se produce: SELECT * FROM Tabla1,Tabla2; */
